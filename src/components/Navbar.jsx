@@ -1,22 +1,107 @@
-import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useClickOutside } from "../hooks/useClickOutside";
 
+const roles = ["Music", "Movie", "Book", "Article"];
 
-const Navbar = () => {
+const Navbar = ({ contentType, setContentType }) => {
   const navigate = useNavigate();
 
+  const [value, setValue] = useState("Music");
+  const [showDropdown, setShowDropdown] = useState(false);
+  console.log(value);
+
+  let domNode = useClickOutside(() => {
+    setShowDropdown(false);
+  });
+
+  const handleChange = (value) => {
+    console.log(value);
+    setValue(value);
+    setContentType(value);
+    setShowDropdown(false);
+  };
+
+  console.log(showDropdown);
+
   return (
-    <>
-      <div className="h-4"></div>
-      <div className="flex flex-row text-xl text-slate-300 font-serif">
-        <div className="w-4/6 bg-line-900 pl-4"> Profile</div>
-        {/* <button className='w-44 ' type='submit'>Role</button> */}
-        <select className="bg-[#17092d]">
-          <option value="Music">Music</option>
-          <option value="Movie">Movie</option>
-          <option value="Book">Book</option>
-          <option value=" Article">Article</option>
-        </select>
+    <div className="h-16 px-4 flex flex-row text-xl items-center justify-between text-slate-300 font-serif">
+      <div className=" bg-line-900 "> Profile</div>
+      {/* <button className='w-44 ' type='submit'>Role</button> */}
+      {/* <select className="bg-[#17092d]">
+          <option
+            value="Music"
+            onSelect={() => {
+              console.log("Music");
+              handleChange("Music");
+            }}
+          >
+            Music
+          </option>
+          <option
+            value="Movie"
+            onSelect={() => {
+              console.log("Music");
+              handleChange("Music");
+            }}
+          >
+            Movie
+          </option>
+          <option
+            value="Book"
+            onSelect={() => {
+              console.log("Music");
+              handleChange("Music");
+            }}
+          >
+            Book
+          </option>
+          <option
+            value=" Article"
+            onSelect={() => {
+              console.log("Music");
+              handleChange("Music");
+            }}
+          >
+            Article
+          </option>
+        </select> */}
+
+      <div className="flex items-center">
+        <div className="relative bg-line-900 pl-4" ref={domNode}>
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              setShowDropdown((prev) => {
+                return !prev;
+              });
+            }}
+          >
+            {value}
+          </div>
+          <div
+            className={`${
+              showDropdown ? "" : "hidden"
+            } absolute w-30 left-0 rounded bg-[#a251ff7d]`}
+          >
+            {roles.map((role, index) => {
+              return (
+                <div
+                  key={index}
+                  className="w-[100px] z-50  px-2 text-[16px] flex flex-col gap-4 rounded hover:bg-[#6d72cb7d]"
+                  type="submit"
+                  onClick={() => {
+                    console.log(role);
+                    handleChange(role);
+                  }}
+                >
+                  {role}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         <button
           className="w-44"
           type="submit"
@@ -28,7 +113,7 @@ const Navbar = () => {
         </button>
         <button type="submit">Login</button>
       </div>
-    </>
+    </div>
   );
 };
 
