@@ -14,7 +14,7 @@ const Search = ({ contentType }) => {
       };
       //make an api call with this prompt
       const response = await axios.post(
-        "http://localhost:5000/api/recommendation/generate",
+        "http://localhost:5001/api/recommendation/generate",
         data
       );
       console.log(response);

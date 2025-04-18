@@ -27,46 +27,7 @@ const Navbar = ({ contentType, setContentType }) => {
   return (
     <div className="h-16 px-4 flex flex-row text-xl items-center justify-between text-slate-300 font-serif">
       <div className=" bg-line-900 "> Profile</div>
-      {/* <button className='w-44 ' type='submit'>Role</button> */}
-      {/* <select className="bg-[#17092d]">
-          <option
-            value="Music"
-            onSelect={() => {
-              console.log("Music");
-              handleChange("Music");
-            }}
-          >
-            Music
-          </option>
-          <option
-            value="Movie"
-            onSelect={() => {
-              console.log("Music");
-              handleChange("Music");
-            }}
-          >
-            Movie
-          </option>
-          <option
-            value="Book"
-            onSelect={() => {
-              console.log("Music");
-              handleChange("Music");
-            }}
-          >
-            Book
-          </option>
-          <option
-            value=" Article"
-            onSelect={() => {
-              console.log("Music");
-              handleChange("Music");
-            }}
-          >
-            Article
-          </option>
-        </select> */}
-
+    
       <div className="flex items-center">
         <div className="relative bg-line-900 pl-4" ref={domNode}>
           <div
