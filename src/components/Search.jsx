@@ -14,7 +14,7 @@ const Search = ({ contentType }) => {
       };
       //make an api call with this prompt
       const response = await axios.post(
-        "https://entertainment-sys-back.onrender.com",
+        "https://entertainment-sys-back.onrender.com/api/recommendation",
         data
       );
       console.log(response);
