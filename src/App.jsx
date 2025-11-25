@@ -9,7 +9,7 @@ function App() {
   const [contentType, setContentType] = useState("Music");
   console.log(contentType);
   return (
-    <div className=" bg-gradient-to-b from-[#17092d] from-5% to-[#0b061d] to-30% overflow-y-scroll">
+    <div className=" bg-gradient-to-b from-[#17092d] from-5% to-[#0b061d] to-30% overflow-y-scroll no-scrollbar">
       <BrowserRouter>
         <Navbar contentType={contentType} setContentType={setContentType} />
         <Routes>

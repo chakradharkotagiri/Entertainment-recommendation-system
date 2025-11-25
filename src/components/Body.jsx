@@ -17,7 +17,7 @@ const Body = ({ contentType }) => {
   // console.log(contentType);
   return (
     <>
-      <div className="w-full flex flex-row justify-center text-center ">
+      <div className="w-full flex flex-row  justify-center text-center ">
         <div className="w-9/12 pt-40 font-sans text-2xl text-white ">
           <div className="font-semibold text-3xl">
             AI {contentType} Recommender
