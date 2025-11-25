@@ -5,23 +5,24 @@ import toast from "react-hot-toast";
 const Search = ({ contentType }) => {
   const [prompt, setPrompt] = useState("");
   const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false); // NEW
+  const [loading, setLoading] = useState(false); 
 
-  const backendLocal = "http://localhost:5001/api/recommendation/generate";
+  const backendRemote = "https://entertainment-sys-back.onrender.com/api/recommendation/generate"
+  // const backendLocal = "http://localhost:5001/api/recommendation/generate";
 
   const handleSubmit = async () => {
     try {
-      setLoading(true); // disable button
-      setResult(""); // clear old result
+      setLoading(true); 
+      setResult(""); 
 
       const data = { prompt, contentType };
-      const response = await axios.post(backendLocal, data);
+      const response = await axios.post(backendRemote, data);
 
       setResult(response.data.message);
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
-      setLoading(false); // enable button again
+      setLoading(false); 
     }
   };
 
@@ -45,9 +46,9 @@ const Search = ({ contentType }) => {
           if (prompt.length > 0) handleSubmit();
           else toast.error("Please specify your requirements");
         }}
-        disabled={loading} // DISABLE BUTTON HERE
+        disabled={loading} 
       >
-        {loading ? "Loading..." : "Go"} {/* CHANGE TEXT WHILE LOADING */}
+        {loading ? "Loading..." : "Go"} 
       </button>
 
       <div className="text-white mt-4 w-[100%] whitespace-pre-wrap">
@@ -55,7 +56,7 @@ const Search = ({ contentType }) => {
           <div
             className="w-full mt-4 p-4 bg-[#1a112f] text-white rounded-lg 
                whitespace-pre-wrap overflow-y-auto no-scrollbar"
-            style={{ maxHeight: "700px",}} // auto-expand up to 300px
+            style={{ maxHeight: "700px",}} 
           >
             {result}
           </div>
