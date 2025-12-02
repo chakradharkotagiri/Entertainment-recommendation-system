@@ -26,7 +26,9 @@ const Navbar = ({ contentType, setContentType }) => {
 
   return (
     <div className="h-16 px-4 flex flex-row text-xl items-center justify-between text-slate-300 font-serif">
-      <div className=" bg-line-900 "> Profile</div>
+      <div
+      onClick={()=> {navigate("/")}}
+      className=" bg-line-900 "> Home</div>
     
       <div className="flex items-center">
         <div className="relative bg-line-900 pl-4" ref={domNode}>

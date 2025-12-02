@@ -51,7 +51,7 @@ const Search = ({ contentType }) => {
         {loading ? "Loading..." : "Go"} 
       </button>
 
-      <div className="text-white mt-4 w-[100%] whitespace-pre-wrap">
+      <div className="text-white mt-4 w-[100%] font-mono whitespace-pre-wrap">
         {result && (
           <div
             className="w-full mt-4 p-4 bg-[#1a112f] text-white rounded-lg 

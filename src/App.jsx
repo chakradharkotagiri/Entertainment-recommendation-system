@@ -13,7 +13,7 @@ function App() {
       <BrowserRouter>
         <Navbar contentType={contentType} setContentType={setContentType} />
         <Routes>
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<Signup />} /> 
           <Route path="/" element={<Body contentType={contentType} />} />
         </Routes>
       </BrowserRouter>

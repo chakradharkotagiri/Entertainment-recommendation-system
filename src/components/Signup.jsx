@@ -1,11 +1,165 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+// removed ImageUpload import since we use a simple file input now
+// import Card from "../FormElements/Card";
+import { useNavigate } from "react-router-dom";
+// import { API_URL } from "../../../config";
 
-const Signup = () => {
+export default function Signup() {
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    trigger,
+    formState: { errors, isSubmitting, touchedFields, dirtyFields },
+  } = useForm({
+    mode: "onChange", // validate while typing
+    reValidateMode: "onChange",
+  });
+
+  // watch email to trigger debounced validation when user stops typing
+  const emailValue = watch("email");
+
+  useEffect(() => {
+    // only run debounce validation when user has interacted with the field
+    if (!emailValue) return; // nothing typed yet
+    // also ensure the field is touched/dirty (user started typing)
+    if (!touchedFields.email && !dirtyFields.email) return;
+
+    const id = setTimeout(() => {
+      // trigger validation for email field only
+      trigger("email");
+    }, 700);
+    return () => clearTimeout(id);
+  }, [emailValue, trigger, touchedFields, dirtyFields]);
+
+  
   return (
-    <div>
-      Check
-    </div>
-  )
-}
+    <div className="flex justify-center min-h-screen items-center bg-gradient-to-b from-[#17092d] from-5% to-[#0b061d] to-30% p-4">
 
-export default Signup
+        <form
+          className="text-xl border-2 border-solid text-white p-4 w-[360px]"
+
+        >
+          <h1 className="flex justify-center mb-4 text-3xl font-bold">Signup Form</h1>
+
+          <div className="flex flex-col gap-2">
+            <div>
+              <label className="block mb-1">First name</label>
+              <input
+                placeholder="Enter your first name"
+                className="w-full h-9 px-2 text-sm placeholder:text-sm placeholder:font-medium bg-slate-100 text-black border-2 border-black rounded-md"
+                {...register("firstName", {
+                  required: "First name is required",
+                  maxLength: { value: 20, message: "Maximum length is 20" },
+                  minLength: { value: 3, message: "Minimum length is 3" },
+                })}
+              />
+              {errors.firstName && (
+                <p className="text-red-700 text-sm mt-1">{errors.firstName.message}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block mb-1">Last name</label>
+              <input
+                placeholder="Enter your last name"
+                className="w-full h-9 px-2 text-sm placeholder:text-sm placeholder:font-medium bg-slate-100 text-black border-2 border-black rounded-md"
+                {...register("lastName", {
+                  required: "Last name is required",
+                  minLength: { value: 3, message: "Minimum length is 3" },
+                  maxLength: { value: 20, message: "Maximum length is 20" },
+                })}
+              />
+              {errors.lastName && (
+                <p className="text-red-700 text-sm mt-1">{errors.lastName.message}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block mb-1">Username</label>
+              <input
+                placeholder="Choose a username"
+                className="w-full h-9 px-2 text-sm placeholder:text-sm placeholder:font-medium bg-slate-100 text-black border-2 border-black rounded-md"
+                {...register("username", {
+                  required: "Username is required",
+                  minLength: { value: 3, message: "Minimum length is 3" },
+                })}
+              />
+              {errors.username && (
+                <p className="text-red-700 text-sm mt-1">{errors.username.message}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block mb-1">Email</label>
+              <input
+                placeholder="you@gmail.com"
+                className="w-full h-9 px-2 text-sm placeholder:text-sm placeholder:font-medium bg-slate-100 text-black border-2 border-black rounded-md"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
+                    message: "Please enter a valid Gmail address ending with @gmail.com",
+                  },
+                })}
+              />
+              {/* show email error only after user interacted with the field */}
+              {errors.email && (touchedFields.email || dirtyFields.email) && (
+                <p className="text-red-700 text-sm mt-1">{errors.email.message}</p>
+              )}
+            </div>
+
+            {/* simplified file chooser: no preview, just the choose file input */}
+            <div>
+              <label className="block mb-1">Profile image</label>
+              <input
+                type="file"
+                accept="image/*"
+                className="w-full text-sm placeholder:text-sm bg-slate-100 text-black border-2 border-black rounded-md px-2 py-1"
+                {...register("avatar")}
+              />
+              {/* optional helper text if you want */}
+              <p className="text-xs text-gray-300 mt-1">Choose a profile image (optional)</p>
+            </div>
+
+            <div>
+              <label className="block mb-1">Password</label>
+              <input
+                type="password"
+                placeholder="Create a password (min 5 chars)"
+                className="w-full h-9 px-2 text-sm placeholder:text-sm placeholder:font-medium bg-slate-100 text-black border-2 border-black rounded-md"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: { value: 5, message: "Minimum length is 5" },
+                })}
+              />
+              {errors.password && (
+                <p className="text-red-700 text-sm mt-1">{errors.password.message}</p>
+              )}
+            </div>
+
+            <input
+              className="w-full bg-[#1A1A1A] border-2 text-lg border-black mt-2 rounded-md px-4 py-2 cursor-pointer disabled:opacity-60"
+              type="submit"
+              disabled={isSubmitting}
+              value={isSubmitting ? "Submitting" : "Submit"}
+            />
+
+            <p className="mt-2 text-sm text-center">
+              Already have an account?{' '}
+              <span
+                className="text-blue-500 underline cursor-pointer"
+                onClick={() => navigate('/login')}
+              >
+                Login here
+              </span>
+            </p>
+          </div>
+        </form>
+
+    </div>
+  );
+}
