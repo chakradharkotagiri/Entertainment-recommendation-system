@@ -4,6 +4,7 @@ import Body from "./components/Body";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Signup from "./components/Signup";
 import { useState } from "react";
+import Login from "./components/Login";
 
 function App() {
   const [contentType, setContentType] = useState("Music");
@@ -13,7 +14,8 @@ function App() {
       <BrowserRouter>
         <Navbar contentType={contentType} setContentType={setContentType} />
         <Routes>
-          <Route path="/signup" element={<Signup />} /> 
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login/>} />
           <Route path="/" element={<Body contentType={contentType} />} />
         </Routes>
       </BrowserRouter>

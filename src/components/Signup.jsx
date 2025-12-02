@@ -40,7 +40,7 @@ export default function Signup() {
     <div className="flex justify-center min-h-screen items-center bg-gradient-to-b from-[#17092d] from-5% to-[#0b061d] to-30% p-4">
 
         <form
-          className="text-xl border-2 border-solid text-white p-4 w-[360px]"
+          className="text-xl border-2 border-solid rounded-lg text-white p-4 w-[360px]"
 
         >
           <h1 className="flex justify-center mb-4 text-3xl font-bold">Signup Form</h1>

@@ -74,7 +74,9 @@ const Navbar = ({ contentType, setContentType }) => {
         >
           Signup
         </button>
-        <button type="submit">Login</button>
+        <button onClick={() => {
+            navigate("/login");
+          }} type="submit">Login</button>
       </div>
     </div>
   );
